@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+    <style>
+        /* Your Contact page styles */
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .message {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .user-message {
+            background-color: #f4f4f4;
+            text-align: left;
+        }
+
+        .assistant-message {
+            background-color: #f60;
+            color: white;
+            text-align: right;
+        }
+
+        .input-container {
+            margin-top: 10px;
+        }
+
+        .input-container input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .input-container button {
+            padding: 8px 16px;
+            background-color: #f60;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Contact Us</h2>
+        <div class="chat-messages" id="chatMessages">
+            <div class="assistant-message">How may I help you?</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Commonly asked questions and their responses
+        const predefinedQuestions = {
+    "website not working": "If the website isn't working properly, try these steps:\n" +
+                           "1. Check your internet connection.\n" +
+                           "2. Refresh the page.\n" +
+                           "3. Clear your browser's cache and cookies.\n" +
+                           "4. If the issue persists, try again later.",
+    "why is this website better": "Our website offers several advantages:\n" +
+                                  "- Wide range of high-quality products.\n" +
+                                  "- Unbeatable prices and exclusive deals.\n" +
+                                  "- User-friendly interface for easy navigation.\n" +
+                                  "- Secure and convenient online transactions.\n" +
+                                  "- Responsive customer support for a smooth shopping experience.",
+    "shipping information": "Our standard shipping time is 3-5 business days. Expedited shipping options are also available for faster delivery.",
+    "how to return a product": "To initiate a product return, please visit the 'Returns and Refunds' section in your account settings.",
+    "how to create an account": "To create an account, click on the 'Sign Up' link at the top of the page and follow the prompts.",
+    "how to reset password": "To reset your password, click on the 'Forgot Password' link on the login page and follow the instructions.",
+    "are my payments secure?": "Yes, we use secure encryption technology to ensure that your payment information is safe.",
+    "do you offer international shipping?": "Yes, we offer international shipping to many countries. You can check if your country is eligible during checkout.",
+    "how can I track my order?": "Once your order is shipped, you will receive a tracking number via email. You can use this number to track your order's status.",
+    "what payment methods do you accept?": "We accept major credit cards, debit cards, and PayPal for payment.",
+    "can I cancel an order?": "You can cancel an order within 24 hours of placing it. After that, please contact customer support for assistance.",
+    "how do I contact customer support?": "You can contact our customer support team through the 'Contact Us' page or by emailing support@example.com.",
+    "are there any discounts available?": "We frequently offer discounts and promotions. Keep an eye on our website or subscribe to our newsletter to stay updated.",
+    "how do I leave a product review?": "After making a purchase, you can leave a product review on the respective product's page. Your feedback is valuable to us.",
+    "how do I change my account password?": "To change your account password, log in and navigate to the 'Account Settings' page. From there, you can update your password.",
+    "what are the accepted return reasons?": "We accept returns for reasons such as product defects, incorrect items received, and dissatisfaction with the product. Please check our 'Returns and Refunds' policy for more details.",
+    "how can I update my shipping address?": "You can update your shipping address in the 'Shipping Information' section of your account settings.",
+    "are there any restrictions on international orders?": "While we offer international shipping to many countries, there may be restrictions based on local regulations. Please check the shipping information during checkout.",
+    "how can I unsubscribe from marketing emails?": "You can unsubscribe from marketing emails by clicking the 'Unsubscribe' link at the bottom of any of our marketing emails.",
+    "what is your privacy policy?": "Our privacy policy outlines how we collect, use, and protect your personal information. You can find it in the 'Privacy Policy' section of our website.",
+    "how do I check my order history?": "You can view your order history by logging in to your account and navigating to the 'Order History' section.",
+    "what is the warranty period for products?": "The warranty period varies depending on the product. You can find warranty information on the product page or in the product's user manual.",
+    "how can I apply a coupon code?": "You can apply a coupon code during the checkout process. There will be a field where you can enter the code to receive the discount.",
+    "how can I provide feedback about the website?": "We value your feedback! You can provide feedback about the website's functionality, design, and user experience by contacting our customer support or using the 'Feedback' form on our website.",
+    "what should I do if I receive a damaged product?": "If you receive a damaged product, please contact our customer support within 48 hours of receiving the item. We will guide you through the return and replacement process.",
+    "can I change my order after it's been placed?": "Once an order is placed, it's processed quickly. If you need to make changes, please contact customer support immediately to see if modifications are possible.",
+    "how do I track my international order?": "You can track your international order using the tracking number provided in the shipping confirmation email. The tracking may be available through the local postal service as well.",
+    "how long does it take to process a return?": "Once we receive your returned item, it may take up to 7 business days to process the return and initiate the refund. You will be notified via email.",
+    "do you offer gift wrapping services?": "Yes, we offer gift wrapping services for an additional fee. You can select this option during the checkout process.",
+    "how can I view product specifications?": "You can find detailed product specifications on the product page. Look for the 'Specifications' or 'Product Details' section.",
+    "what is your price matching policy?": "We do offer price matching under certain conditions. Please review our 'Price Match Guarantee' policy for more information.",
+    "how do I redeem loyalty points?": "You can redeem your loyalty points during the checkout process. There will be an option to apply your points toward the purchase.",
+    "can I change the shipping method after ordering?": "Once an order is placed, the shipping method cannot be changed. If you have specific shipping preferences, please select the desired method during checkout.",
+    "are there any size guides for clothing items?": "Yes, we provide size guides for clothing items. You can find a link to the size guide on each product's page.",
+    "how do I add multiple items to my cart at once?": "You can add multiple items to your cart by clicking the 'Add to Cart' button for each item. The items will be added to your cart one by one.",
+    "what is your email response time for inquiries?": "Our email response time is typically within 24 hours on business days. During high volumes, it might take slightly longer.",
+    "how do I apply for a product return online?": "To apply for a product return, log in to your account, go to the 'Order History' section, find the order, and initiate a return request.",
+    "can I pre-order items that are out of stock?": "Yes, you can pre-order items that are currently out of stock. The estimated shipping date will be provided on the product page.",
+    "how can I update my billing information?": "You can update your billing information in the 'Billing Information' section of your account settings.",
+    "what is your cancellation policy for digital downloads?": "We do not offer cancellations or refunds for digital downloads once the purchase is complete. Please review the product details before purchasing.",
+    "how do I contact your technical support team?": "You can contact our technical support team through the 'Contact Us' page or by emailing techsupport@example.com.",
+    "what are the terms and conditions of using coupons?": "The terms and conditions of using coupons vary. You can find specific details on the coupon itself or in the 'Coupons and Promotions' section of our website.",
+    "how do I check the status of my warranty claim?": "You can check the status of your warranty claim by logging in to your account and navigating to the 'Warranty Claims' section.",
+    "do you have a mobile app for shopping?": "Yes, we have a mobile app available for both iOS and Android devices. You can download it from the App Store or Google Play Store.",
+    "how do I change my account password?": "To change your account password, log in and navigate to the 'Account Settings' page. From there, you can update your password.",
+    "what are the accepted return reasons?": "We accept returns for reasons such as product defects, incorrect items received, and dissatisfaction with the product. Please check our 'Returns and Refunds' policy for more details.",
+    "how can I update my shipping address?": "You can update your shipping address in the 'Shipping Information' section of your account settings.",
+    "are there any restrictions on international orders?": "While we offer international shipping to many countries, there may be restrictions based on local regulations. Please check the shipping information during checkout.",
+    "how can I unsubscribe from marketing emails?": "You can unsubscribe from marketing emails by clicking the 'Unsubscribe' link at the bottom of any of our marketing emails.",
+    "what is your privacy policy?": "Our privacy policy outlines how we collect, use, and protect your personal information. You can find it in the 'Privacy Policy' section of our website.",
+    "how do I check my order history?": "You can view your order history by logging in to your account and navigating to the 'Order History' section.",
+    "what is the warranty period for products?": "The warranty period varies depending on the product. You can find warranty information on the product page or in the product's user manual.",
+    "how can I apply a coupon code?": "You can apply a coupon code during the checkout process. There will be a field where you can enter the code to receive the discount.",
+    "how can I provide feedback about the website?": "We value your feedback! You can provide feedback about the website's functionality, design, and user experience by contacting our customer support or using the 'Feedback' form on our website.",
+    "what should I do if I receive a damaged product?": "If you receive a damaged product, please contact our customer support within 48 hours of receiving the item. We will guide you through the return and replacement process.",
+    "can I change my order after it's been placed?": "Once an order is placed, it's processed quickly. If you need to make changes, please contact customer support immediately to see if modifications are possible.",
+    "how do I track my international order?": "You can track your international order using the tracking number provided in the shipping confirmation email. The tracking may be available through the local postal service as well.",
+    "how long does it take to process a return?": "Once we receive your returned item, it may take up to 7 business days to process the return and initiate the refund. You will be notified via email.",
+    "do you offer gift wrapping services?": "Yes, we offer gift wrapping services for an additional fee. You can select this option during the checkout process.",
+    "how can I view product specifications?": "You can find detailed product specifications on the product page. Look for the 'Specifications' or 'Product Details' section.",
+    "what is your price matching policy?": "We do offer price matching under certain conditions. Please review our 'Price Match Guarantee' policy for more information.",
+    "how do I redeem loyalty points?": "You can redeem your loyalty points during the checkout process. There will be an option to apply your points toward the purchase.",
+    "can I change the shipping method after ordering?": "Once an order is placed, the shipping method cannot be changed. If you have specific shipping preferences, please select the desired method during checkout.",
+    "are there any size guides for clothing items?": "Yes, we provide size guides for clothing items. You can find a link to the size guide on each product's page.",
+    "how do I add multiple items to my cart at once?": "You can add multiple items to your cart by clicking the 'Add to Cart' button for each item. The items will be added to your cart one by one.",
+    "what is your email response time for inquiries?": "Our email response time is typically within 24 hours on business days. During high volumes, it might take slightly longer.",
+    "how do I apply for a product return online?": "To apply for a product return, log in to your account, go to the 'Order History' section, find the order, and initiate a return request.",
+    "can I pre-order items that are out of stock?": "Yes, you can pre-order items that are currently out of stock. The estimated shipping date will be provided on the product page.",
+    "how can I update my billing information?": "You can update your billing information in the 'Billing Information' section of your account settings.",
+    "what is your cancellation policy for digital downloads?": "We do not offer cancellations or refunds for digital downloads once the purchase is complete. Please review the product details before purchasing.",
+    "how do I contact your technical support team?": "You can contact our technical support team through the 'Contact Us' page or by emailing techsupport@example.com.",
+    "what are the terms and conditions of using coupons?": "The terms and conditions of using coupons vary. You can find specific details on the coupon itself or in the 'Coupons and Promotions' section of our website.",
+    "how do I check the status of my warranty claim?": "You can check the status of your warranty claim by logging in to your account and navigating to the 'Warranty Claims' section.",
+    "do you have a mobile app for shopping?": "Yes, we have a mobile app available for both iOS and Android devices. You can download it from the App Store or Google Play Store.",
+
+
+};
+
+// The rest of your script, including processUserMessage function
+
+            // Continue adding more questions and responses...
+        
+            function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === '') {
+                return;
+            }
+
+            addUserMessage(userInput);
+            processUserMessage(userInput);
+            document.getElementById('userInput').value = '';
+        }
+
+        function addUserMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message user-message';
+            messageElement.innerText = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function addAssistantMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message assistant-message';
+            messageElement.innerText = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function processUserMessage(userInput) {
+            userInput = userInput.toLowerCase();
+
+            // Check if user's input matches any predefined question keywords
+            for (const question in predefinedQuestions) {
+                const keywords = question.split(' '); // Split question into keywords
+                let foundAllKeywords = true;
+
+                // Check if all keywords are present in user input
+                for (const keyword of keywords) {
+                    if (!userInput.includes(keyword)) {
+                        foundAllKeywords = false;
+                        break;
+                    }
+                }
+
+                if (foundAllKeywords) {
+                    addAssistantMessage(predefinedQuestions[question]);
+                    return;
+                }
+            }
+
+            // Default response if user's query doesn't match any predefined question
+            addAssistantMessage("I'm here to assist you.");
+        }
+    </script>
+</body>
+</html>
+<head>
+    <!-- ... Other meta tags and styles ... -->
+    <script src="https://cdn.jsdelivr.net/npm/string-similarity@1.4.0/dist/string-similarity.min.js"></script>
+    <!-- ... Other scripts ... -->
+</head>

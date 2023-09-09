@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Our Ecommerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+        }
+
+        .nav {
+            text-align: left;
+            background-color: #444;
+            padding: 10px;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 15px;
+        }
+
+        .nav a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        .product {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            max-width: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #f60;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .explore-button {
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+            margin-left: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <!-- Your Logo Here -->
+            Ecommerce Store
+        </div>
+        <div class="tagline">
+            Discover Great Deals on Amazing Products!
+        </div>
+    </div>
+
+    <!-- ... (previous code) ... -->
+
+<div class="nav">
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a> <!-- Update the link to the new login page -->
+    <div class="nav">
+        <!-- ... (other navigation links) ... -->
+        <input type="text" id="search-input" placeholder="Search">
+        <button id="search-button">Search</button>
+    </div>
+</div>
+<script>
+    const products = [
+        // You can add your product data here
+        // Example: { name: "Product Name", description: "Product Description" }
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const searchButton = document.getElementById('search-button');
+    const searchResults = document.getElementById('search-results');
+
+    searchButton.addEventListener('click', function() {
+        const query = searchInput.value.toLowerCase();
+        const filteredProducts = products.filter(product =>
+            product.name.toLowerCase().includes(query) || product.description.toLowerCase().includes(query)
+        );
+
+        displaySearchResults(filteredProducts);
+    });
+
+    function displaySearchResults(results) {
+        let resultHTML = '<h2>Search Results</h2>';
+
+        if (results.length === 0) {
+            resultHTML += '<p>No results found.</p>';
+        } else {
+            resultHTML += '<ul>';
+            results.forEach(product => {
+                resultHTML += `<li>${product.name}: ${product.description}</li>`;
+            });
+            resultHTML += '</ul>';
+        }
+
+        searchResults.innerHTML = resultHTML;
+    }
+</script>
+
+<!-- ... (previous code) ... -->
+>
+
+<script>
+    // ... (previous code) ...
+
+    // Open login modal
+    function openLoginModal() {
+        document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    // Close login modal
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+    // Simulate user sign-up
+    function signUp() {
+        // ... logic for signing up ...
+        // After successful sign-up, show user info and change "Learn More" to "Manage Account"
+        document.getElementById('loginModal').style.display = 'none';
+        document.querySelector('.user-info').style.display = 'inline';
+        document.querySelector('.explore-button').style.display = 'none';
+    }
+</script>
+    </div>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Image Slider Example</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+    
+            .slider {
+                width: 100%;
+                height: 400px;
+                overflow: hidden;
+                position: relative;
+            }
+    
+            .slider img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+    
+            .slide-container {
+                display: flex;
+                transition: transform 0.5s ease-in-out;
+            }
+    
+            .slide {
+                width: 100%;
+            }
+    
+            .slider-controls {
+                text-align: center;
+                margin-top: 10px;
+            }
+    
+            .slider-controls button {
+                background-color: #f60;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+    
+            .slider-controls button:hover {
+                background-color: #f90;
+            }
+        </style>
+    </head>
+    <body>
+        <!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slider with Border Example</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .slider {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 4px solid #f60; /* Add border to images */
+        }
+
+        .slide-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 100%;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .slider-controls button {
+            background-color: #f60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .slider-controls button:hover {
+            background-color: #f90;
+        }
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slider with Single Image Per Slide</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .slider {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 4px solid #f60;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .slider-controls button {
+            background-color: #f60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .slider-controls button:hover {
+            background-color: #f90;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slide">
+            <img src="https://www.dealsfreak.com/wp-content/uploads/2018/01/nike-shoes-new-50-off.jpg" alt="Image 1">
+        </div>
+        <div class="slide">
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b2cc1338314039.58743236a5c3f.png" alt="Image 2">
+        </div>
+        <div class="slide">
+            <img src="https://th.bing.com/th/id/OIP.bshRSfgS3GXblu6d2bcc2AHaFS?pid=ImgDet&rs=1" alt="Image 3">
+        </div>
+    </div>
+
+    <div class="slider-controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function nextSlide() {
+            slides[slideIndex].style.display = 'none';
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].style.display = 'block';
+        }
+
+        function prevSlide() {
+            slides[slideIndex].style.display = 'none';
+            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+            slides[slideIndex].style.display = 'block';
+        }
+
+        slides[slideIndex].style.display = 'block';
+    </script>
+</body>
+</html>
+
+
+    <script>
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Simulate user sign-up
+        function signUp() {
+            // ... logic for signing up ...
+            // After successful sign-up, show user info and change "Learn More" to "Manage Account"
+            document.getElementById('loginModal').style.display = 'none';
+            document.querySelector('.user-info').style.display = 'inline';
+            document.querySelector('.explore-button').style.display = 'none';
+        }
+    </script>
+
+    
+    <div class="product">
+        <img src="product-image.jpg" alt="Featured Product">
+        <h2>Featured Product</h2>
+        <p>Check out our amazing featured product. Limited time offer!</p>
+        <a href="products.html" class="cta-button">Shop Now</a>
+        <a href="learn_more.html" class="explore-button">Learn More</a>
+    </div>
+</body>
+</html>
+<!-- All Rights Reserved and Company Logo -->
+<div class="footer">
+    <div class="logo">
+        <!-- Your Company Logo -->
+        Ecommerce Store
+    </div>
+    <div class="rights">
+        &copy; 2023 All Rights Reserved
+    </div>
+</div>
+
+<script>
+    // ... (existing scripts) ...
+</script>
+</body>
+</html>
